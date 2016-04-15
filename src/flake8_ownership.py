@@ -81,38 +81,36 @@ class Checker(object):
 
     def run(self):
         """Run the :class:`Checker` on a :attr:`filename`."""
-        tags = (
+        tags = [
             dict(
                 name='author',
                 error='0',
                 re=author_re,
                 expected=expected_authors,
-                found=False,
             ),
             dict(
                 name='copyright',
                 error='1',
                 re=copyright_re,
                 expected=expected_copyrights,
-                found=False,
             ),
             dict(
                 name='license',
                 error='2',
                 re=license_re,
                 expected=expected_licenses,
-                found=False,
             ),
-        )
+        ]
         with open(self.filename) as f:
             i = 0
             for line in f:
                 i += 1
                 line = line[:-1]
-                for tag in tags:
+                found_tag = None
+                for tag in tags:  # pragma: no branch
                     match = tag['re'].search(line)
                     if match:
-                        tag['found'] = True
+                        found_tag = tag
                         value = match.groupdict()[tag['name']]
                         for regex in tag['expected']:
                             if regex.search(value):
@@ -124,8 +122,11 @@ class Checker(object):
                                 tag['name'],
                             )
                             yield i, 0, msg, type(self)
+                        break
+                if found_tag:  # pragma: no branch
+                    tags.remove(found_tag)
+                    if len(tags) == 0:
+                        break
         for tag in tags:
-            if not tag['found']:
-                fmt = '%s%s missing %s'
-                msg = fmt % (self.codes, tag['error'], tag['name'])
-                yield 0, 0, msg, type(self)
+            msg = '%s%s missing %s' % (self.codes, tag['error'], tag['name'])
+            yield 0, 0, msg, type(self)

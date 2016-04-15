@@ -46,6 +46,7 @@ class Test(unittest.TestCase):
             author=test_author,
             copyright=test_copyright,
             license=test_license,
+            extra=None,
     ):
         """
         Write author, copyright, and license to the temporary file.
@@ -66,6 +67,8 @@ class Test(unittest.TestCase):
             self._tmp.write('%s\n' % copyright)
         if license is not None:
             self._tmp.write('%s\n' % license)
+        if extra is not None:
+            self._tmp.write('%s\n' % extra)
 
     def check(self):
         """
@@ -140,6 +143,13 @@ class Test(unittest.TestCase):
     def test_valid(self):
         """Check properly formatted file."""
         self.write()
+        errors = self.check()
+        fmt = 'expected no errors, got %i'
+        self.assertEqual(0, len(errors), fmt % len(errors))
+
+    def test_stops_checking_when_satisfied(self):
+        """Check that the checker returns immediately once it is satisfied."""
+        self.write(extra=':author: Not the desired author')
         errors = self.check()
         fmt = 'expected no errors, got %i'
         self.assertEqual(0, len(errors), fmt % len(errors))

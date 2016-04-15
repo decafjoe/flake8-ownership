@@ -1,0 +1,8 @@
+*.py[cdo]
+.coverage
+.env
+bin
+coverage
+dist
+doc/_build
+src/flake8_ownership.egg-info

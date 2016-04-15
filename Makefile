@@ -65,14 +65,6 @@ $(PYTHON) :
 
 $(PIP) : $(PYTHON)
 
-$(PRE_COMMIT) : $(PWD)/Makefile
-	echo "$(PRE_COMMIT_HOOK)" > $(PRE_COMMIT)
-	chmod +x $(PRE_COMMIT)
-
-$(PRE_PUSH) : $(PWD)/Makefile
-	echo "$(PRE_PUSH_HOOK)" > $(PRE_PUSH)
-	chmod +x $(PRE_PUSH)
-
 $(UPDATED_ENV) : $(PIP) $(ENV_SOURCES)
 	$(PIP) install -U $(FORCE_UPDATES_TO_PYTHON_PACKAGES)
 	$(PIP) install \
@@ -95,6 +87,14 @@ pristine : clean
 # =============================================================================
 # ----- QA/Test ---------------------------------------------------------------
 # =============================================================================
+
+$(PRE_COMMIT) : $(PWD)/Makefile
+	echo "$(PRE_COMMIT_HOOK)" > $(PRE_COMMIT)
+	chmod +x $(PRE_COMMIT)
+
+$(PRE_PUSH) : $(PWD)/Makefile
+	echo "$(PRE_PUSH_HOOK)" > $(PRE_PUSH)
+	chmod +x $(PRE_PUSH)
 
 lint : env
 	$(FLAKE8) --ignore=D203 doc/conf.py setup.py src

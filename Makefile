@@ -8,15 +8,19 @@
 
 PROJECT = flake8-ownership
 
+# Virtualenv command
 VIRTUALENV ?= virtualenv
 
+# Base directories
 PWD := $(shell pwd)
 ENV = $(PWD)/.env
 
+# Code
 ENV_SOURCES = $(PWD)/setup.py $(PWD)/requirements.txt
 README = $(PWD)/README.rst
 SOURCES = $(PWD)/src/flake8_ownership.py
 
+# Commands
 COVERAGE = $(ENV)/bin/coverage
 FLAKE8 = $(ENV)/bin/flake8
 PIP = $(ENV)/bin/pip
@@ -24,11 +28,14 @@ PYTHON = $(ENV)/bin/python
 SPHINX = $(ENV)/bin/sphinx-build
 UPDATED_ENV = $(ENV)/updated
 
+# Source distribution
 DIST = $(PWD)/dist/$(PROJECT)-$(shell python setup.py --version).tar.gz
 
+# Python package settings
 FORCE_UPDATES_TO_PYTHON_PACKAGES = pip setuptools wheel
 IGNORE_UPDATES_TO_PYTHON_PACKAGES = "\($(PROJECT)\)\|\(virtualenv\)"
 
+# Git hooks
 PRE_COMMIT = $(PWD)/.git/hooks/pre-commit
 PRE_COMMIT_HOOK = make lint
 PRE_PUSH = $(PWD)/.git/hooks/pre-push

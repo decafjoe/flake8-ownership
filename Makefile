@@ -54,6 +54,7 @@ help :
 	@printf "  lint          Run linter on code\n"
 	@printf "  pdf           Generate PDF documentation\n"
 	@printf "  pristine      Delete development environment\n"
+	@printf "  release       Cut a release of the software\n"
 	@printf "  test          Run tests\n\n"
 
 

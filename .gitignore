@@ -1,7 +1,6 @@
 *.py[cdo]
 .coverage
 .env
-bin
 coverage
 dist
 doc/_build

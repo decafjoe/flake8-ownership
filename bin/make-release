@@ -1,0 +1,106 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+root_dir="$(cd $(dirname $0)/.. && pwd)"
+version_file="$root_dir/src/flake8_ownership.py"
+
+if [ $(git rev-parse --abbrev-ref HEAD) != master ]; then
+    echo error: you must be on the master branch to cut a release >&2
+    exit 1
+fi
+
+# Cribbed from http://stackoverflow.com/a/3879077
+git update-index -q --ignore-submodules --refresh
+
+dirty_worktree=no
+
+if ! git diff-index --cached --quiet HEAD >/dev/null 2>&1; then
+    dirty_worktree=yes
+    echo
+    echo Uncommitted changes:
+    git diff-index --cached --name-status -r HEAD
+    echo
+fi
+
+if ! git diff-files --quiet >/dev/null 2>&1; then
+    dirty_worktree=yes
+    echo
+    echo Unstaged changes:
+    git diff-files --name-status -r
+    echo
+fi
+
+if ! git ls-files --other --exclude-standard >/dev/null 2>&1; then
+    dirty_worktree=yes
+    echo
+    echo Utracked files:
+    git ls-files --other --exclude-standard
+    echo
+fi
+
+if [ $dirty_worktree = yes ]; then
+    echo error: you must have a clean work tree to cut a release >&2
+    exit 1
+fi
+
+git fetch
+
+tracking_branch=$(git rev-parse --abbrev-ref @{u})
+local_commit=$(git rev-parse @{0})
+remote_commit=$(git rev-parse @{u})
+base_commit=$(git merge-base @{0} @{u})
+
+if [ $local_commit != $remote_commit ]; then
+    if [ $local_commit = $base_commit ]; then
+        echo error: you are behind $tracking_branch, please pull >&2
+        exit 1
+    fi
+    if [ $remote_commit = $base_commit ]; then
+        echo error: you are ahead of $tracking_branch, please push >&2
+        exit 1
+    fi
+    echo error: you have diverged from $tracking_branch, please resolve >&2
+    exit 1
+fi
+
+current_version=$1
+current_major=$(echo $current_version | awk -F. '{print $1}')
+current_minor=$(echo $current_version | awk -F. '{print $2}')
+current_release=$(echo $current_version | awk -F. '{print $3}')
+
+next_major=$(echo $current_version | awk -F. '{print $1}')
+next_minor=$(echo $current_version | awk -F. '{print $2}')
+next_release=$(echo "$current_release + 1" | bc)
+next_version=$next_major.$next_minor.$next_release
+
+git tag $current_version
+
+read -p "Next version (current: $current_version) [$next_version]: " version
+if [ -z $version ]; then
+    version=$next_version
+fi
+
+major=$(echo $version | awk -F. '{print $1}')
+minor=$(echo $version | awk -F. '{print $2}')
+
+search="version = '$current_version'"
+replace="version = '$version'"
+sed -i '' "s/$search/$replace/g" "$root_dir/setup.py"
+
+search="__version__ = '$current_version'"
+replace="__version__ = '$version'"
+sed -i '' "s/$search/$replace/" "$version_file"
+
+search="version = u'$current_major.$current_minor'"
+replace="version = u'$major.$minor'"
+sed -i '' "s/$search/$replace/" "$root_dir/doc/conf.py"
+
+search="release = u'$current_version'"
+replace="release = u'$version'"
+sed -i '' "s/$search/$replace/" "$root_dir/doc/conf.py"
+
+git add "$root_dir/setup.py" "$root_dir/doc/conf.py" "$version_file"
+git commit -m "Bumps version from $current_version to $version after release."
+git push --tags --no-verify bitbucket master

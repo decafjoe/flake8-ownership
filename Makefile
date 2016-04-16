@@ -28,8 +28,9 @@ PYTHON = $(ENV)/bin/python
 SPHINX = $(ENV)/bin/sphinx-build
 UPDATED_ENV = $(ENV)/updated
 
-# Source distribution
-DIST = $(PWD)/dist/$(PROJECT)-$(shell python setup.py --version).tar.gz
+# Distribution
+VERSION = $(shell python setup.py --version)
+DIST = $(PWD)/dist/$(PROJECT)-$(VERSION).tar.gz
 
 # Python package settings
 FORCE_UPDATES_TO_PYTHON_PACKAGES = pip setuptools wheel
@@ -129,6 +130,9 @@ $(DIST) : $(README) $(SOURCES) $(UPDATED_ENV)
 	rm README
 
 dist : $(DIST)
+
+release : dist
+	$(PWD)/bin/make-release $(VERSION)
 
 clean :
 	rm -rf \

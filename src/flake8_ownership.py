@@ -12,7 +12,7 @@ import re
 #: Version of the extension.
 #:
 #: :type: :class:`str`
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 
 
 #: Current year, used for calculating what the copyright line should be.

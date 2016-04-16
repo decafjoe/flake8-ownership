@@ -51,7 +51,7 @@ extensions = [
 
 html_theme = 'pyramid'
 html_static_path = []
-htmlhelp_basename = 'flake8-ownership-doc'
+htmlhelp_basename = '%s-doc' % project
 
 
 # =============================================================================
@@ -63,9 +63,9 @@ latex_elements = {}
 latex_documents = [
     (
         master_doc,
-        'flake8-ownership.tex',
-        u'flake8-ownership',
-        u'Joe Strickler',
+        '%s.tex' % project,
+        unicode(project),
+        unicode(author),
         'manual',
     ),
 ]
@@ -82,8 +82,8 @@ latex_show_urls = 'footnote'
 man_pages = [
     (
         master_doc,
-        'flake8-ownership',
-        u'flake8-ownership',
+        project,
+        unicode(project),
         [author],
         7,
     ),
@@ -106,10 +106,10 @@ with open(setup_path) as f:
 texinfo_documents = [
     (
         master_doc,
-        'flake8-ownership',
-        u'flake8-ownership',
+        project,
+        unicode(project),
         author,
-        'flake8-ownership',
+        project,
         texinfo_description,
         'Miscellaneous',
     ),

@@ -7,6 +7,7 @@
    :maxdepth: 2
 
    internals
+   roadmap
 
 * :ref:`genindex`
 * :ref:`modindex`

@@ -3,7 +3,7 @@
 Unit tests for flake8-ownership.
 
 :author: Joe Strickler <joe@decafjoe.com>
-:copyright: Joe Strickler, 2016. All rights reserved.
+:copyright: Joe Strickler, 2016-2017. All rights reserved.
 :license: Proprietary
 """
 import os
@@ -21,7 +21,7 @@ test_author = ':author: Joe Strickler <joe@decafjoe.com>'
 #: Valid copyright line.
 #:
 #: :type: :class:`str`
-test_copyright = ':copyright: Joe Strickler, 2016. All rights reserved.'
+test_copyright = ':copyright: Joe Strickler, 2016-2017. All rights reserved.'
 
 #: Valid license line.
 #:

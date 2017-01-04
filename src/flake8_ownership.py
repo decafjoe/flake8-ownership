@@ -3,7 +3,7 @@
 Flake8 extension for checking author, copyright, and license.
 
 :author: Joe Strickler <joe@decafjoe.com>
-:copyright: Joe Strickler, 2016. All rights reserved.
+:copyright: Joe Strickler, 2016-2017. All rights reserved.
 :license: Proprietary
 """
 import datetime

@@ -3,7 +3,7 @@
 Sphinx configuration file for flake8-ownership.
 
 :author: Joe Strickler <joe@decafjoe.com>
-:copyright: Joe Strickler, 2016. All rights reserved.
+:copyright: Joe Strickler, 2016-2017. All rights reserved.
 :license: Proprietary
 """
 import os
@@ -21,7 +21,7 @@ sys.path.insert(0, src_path)
 
 # Basic project information
 project = u'flake8-ownership'
-copyright = u'2016, Joe Strickler'
+copyright = u'2016-2017, Joe Strickler'
 author = u'Joe Strickler'
 version = u'0.2'
 release = u'0.2.0'

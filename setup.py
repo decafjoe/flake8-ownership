@@ -2,8 +2,8 @@
 """
 Package configuration for flake8-ownership.
 
-:author: Joe Strickler <joe@decafjoe.com>
-:copyright: Joe Strickler, 2016-2017. All rights reserved.
+:author: Joe Joyce <joe@decafjoe.com>
+:copyright: Joe Joyce, 2016-2017. All rights reserved.
 :license: Proprietary
 """
 from setuptools import setup
@@ -15,7 +15,7 @@ requires = ()
 
 
 setup(
-    author='Joe Strickler',
+    author='Joe Joyce',
     author_email='joe@decafjoe.com',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',

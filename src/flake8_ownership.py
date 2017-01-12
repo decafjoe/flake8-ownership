@@ -2,8 +2,8 @@
 """
 Flake8 extension for checking author, copyright, and license.
 
-:author: Joe Strickler <joe@decafjoe.com>
-:copyright: Joe Strickler, 2016-2017. All rights reserved.
+:author: Joe Joyce <joe@decafjoe.com>
+:copyright: Joe Joyce, 2016-2017. All rights reserved.
 :license: Proprietary
 """
 import datetime
@@ -29,7 +29,7 @@ author_re = re.compile(r'^:author: (?P<author>.+)$')
 #:
 #: :type: :class:`list`
 expected_authors = (
-    re.compile(r'^Joe Strickler <joe@decafjoe.com>$'),
+    re.compile(r'^Joe Joyce <joe@decafjoe.com>$'),
 )
 
 #: Regex that matches the ``:copyright:`` line.
@@ -41,7 +41,7 @@ copyright_re = re.compile(r'^:copyright: (?P<copyright>.+)$')
 #:
 #: :type: :class:`list`
 expected_copyrights = (
-    re.compile(r'^Joe Strickler, (20\d{2}-)?%s. All rights reserved.$' % year),
+    re.compile(r'^Joe Joyce, (20\d{2}-)?%s. All rights reserved.$' % year),
 )
 
 #: Regex that matches the ``:license:`` line.

@@ -2,8 +2,8 @@
 """
 Unit tests for flake8-ownership.
 
-:author: Joe Strickler <joe@decafjoe.com>
-:copyright: Joe Strickler, 2016-2017. All rights reserved.
+:author: Joe Joyce <joe@decafjoe.com>
+:copyright: Joe Joyce, 2016-2017. All rights reserved.
 :license: Proprietary
 """
 import os
@@ -16,12 +16,12 @@ from flake8_ownership import Checker
 #: Valid author line.
 #:
 #: :type: :class:`str`
-test_author = ':author: Joe Strickler <joe@decafjoe.com>'
+test_author = ':author: Joe Joyce <joe@decafjoe.com>'
 
 #: Valid copyright line.
 #:
 #: :type: :class:`str`
-test_copyright = ':copyright: Joe Strickler, 2016-2017. All rights reserved.'
+test_copyright = ':copyright: Joe Joyce, 2016-2017. All rights reserved.'
 
 #: Valid license line.
 #:
@@ -116,7 +116,7 @@ class Test(unittest.TestCase):
 
     def test_author_invalid(self):
         """Check error when author is invalid."""
-        self.write(author=':author: Joseph Strickler <joe@decafjoe.com>')
+        self.write(author=':author: Joseph Joyce <joe@decafjoe.com>')
         self.assert_error(1, 0, 'O100 unrecognized author')
 
     def test_copyright_missing(self):
@@ -126,7 +126,7 @@ class Test(unittest.TestCase):
 
     def test_copyright_invalid(self):
         """Check error when copyright is invalid."""
-        line = ':copyright: Joe Strickler, 2015. All rights reserved.'
+        line = ':copyright: Joe Joyce, 2015. All rights reserved.'
         self.write(copyright=line)
         self.assert_error(2, 0, 'O101 unrecognized copyright')
 

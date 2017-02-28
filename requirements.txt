@@ -6,4 +6,4 @@ flake8-docstrings==1.0.3
 flake8-quotes==0.9.0
 flake8-todo==0.7
 pep8-naming==0.4.1
-sphinx==1.5.2
+sphinx==1.5.3

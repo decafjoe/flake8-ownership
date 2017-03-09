@@ -10,19 +10,11 @@ Extension
 .. automodule:: flake8_ownership
 
 .. autodata:: __version__
-.. autodata:: year
-   :annotation:
 .. autodata:: author_re
-   :annotation:
-.. autodata:: expected_authors
    :annotation:
 .. autodata:: copyright_re
    :annotation:
-.. autodata:: expected_copyrights
-   :annotation:
 .. autodata:: license_re
-   :annotation:
-.. autodata:: expected_licenses
    :annotation:
 
 .. autoclass:: Checker
@@ -35,8 +27,14 @@ Tests
 .. automodule:: test
 
 .. autodata:: test_author
+.. autodata:: test_author_re
 .. autodata:: test_copyright
+.. autodata:: test_copyright_re
 .. autodata:: test_license
+.. autodata:: test_license_re
 
-.. autoclass:: Test
+.. autoclass:: OptionTest
+   :members:
+
+.. autoclass:: CheckerTest
    :members:

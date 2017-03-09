@@ -3,8 +3,8 @@
 Sphinx configuration file for flake8-ownership.
 
 :author: Joe Joyce <joe@decafjoe.com>
-:copyright: Joe Joyce, 2016-2017. All rights reserved.
-:license: Proprietary
+:copyright: Copyright (c) Joe Joyce, 2016-2017. All rights reserved.
+:license: BSD
 """
 import os
 import sys
@@ -23,8 +23,8 @@ sys.path.insert(0, src_path)
 project = u'flake8-ownership'
 copyright = u'2016-2017, Joe Joyce'
 author = u'Joe Joyce'
-version = u'0.2'
-release = u'0.2.0'
+version = u'0.9'
+release = u'0.9.0'
 
 # Paths
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

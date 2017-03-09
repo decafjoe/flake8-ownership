@@ -3,8 +3,8 @@
 Flake8 extension for checking author, copyright, and license.
 
 :author: Joe Joyce <joe@decafjoe.com>
-:copyright: Joe Joyce, 2016-2017. All rights reserved.
-:license: Proprietary
+:copyright: Copyright (c) Joe Joyce, 2016-2017. All rights reserved.
+:license: BSD
 """
 import datetime
 import re
@@ -12,49 +12,22 @@ import re
 #: Version of the extension.
 #:
 #: :type: :class:`str`
-__version__ = '0.2.0'
-
-
-#: Current year, used for calculating what the copyright line should be.
-#:
-#: :type: :class:`int`
-year = datetime.date.today().year
+__version__ = '0.9.0'
 
 #: Regex that matches the ``:author:`` line.
 #:
 #: :type: :func:`re <re.compile>`
 author_re = re.compile(r'^:author: (?P<author>.+)$')
 
-#: Sequence of regexes matching expected ``:author:`` values.
-#:
-#: :type: :class:`list`
-expected_authors = (
-    re.compile(r'^Joe Joyce <joe@decafjoe.com>$'),
-)
-
 #: Regex that matches the ``:copyright:`` line.
 #:
 #: :type: :func:`re <re.compile>`
 copyright_re = re.compile(r'^:copyright: (?P<copyright>.+)$')
 
-#: Sequence of regexes matching expected ``:copyright:`` values.
-#:
-#: :type: :class:`list`
-expected_copyrights = (
-    re.compile(r'^Joe Joyce, (20\d{2}-)?%s. All rights reserved.$' % year),
-)
-
 #: Regex that matches the ``:license:`` line.
 #:
 #: :type: :func:`re <re.compile>`
 license_re = re.compile(r'^:license: (?P<license>.+)$')
-
-#: Sequence of regexes matching expected ``:license:`` values.
-#:
-#: :type: :class:`list`
-expected_licenses = (
-    re.compile(r'^Proprietary$'),
-)
 
 
 class Checker(object):
@@ -75,39 +48,103 @@ class Checker(object):
     #: :type: :class:`str`
     version = __version__
 
-    def __init__(self, tree, filename):  # noqa
+    #: List of regexes of valid :author: values.
+    #:
+    #: :type: :class:`list` of :mod:`re` instances.
+    author_re = None
+
+    #: List of regexes of valid :copyright: values.
+    #:
+    #: :type: :class:`list` of :mod:`re` instances.
+    copyright_re = None
+
+    #: List of regexes of valid :license: values.
+    #:
+    #: :type: :class:`list` of :mod:`re` instances.
+    license_re = None
+
+    @classmethod
+    def add_options(cls, parser):
+        """Add --author-re, --copyright-re, and --license-re options."""
+        parser.add_option(
+            '--author-re',
+            comma_separated_list=True,
+            help='regular expression(s) for valid :author: lines',
+            parse_from_config=True,
+        )
+        parser.add_option(
+            '--copyright-re',
+            comma_separated_list=True,
+            help='regular expression(s) for valid :copyright: lines',
+            parse_from_config=True,
+        )
+        parser.add_option(
+            '--license-re',
+            comma_separated_list=True,
+            help='regular expression(s) for valid :license: lines',
+            parse_from_config=True,
+        )
+
+    @classmethod
+    def _parse_option(cls, options, option):
+        rv = []
+        year = str(datetime.datetime.today().year)
+        for regex in getattr(options, option, ()):
+            regex = regex.replace('<COMMA>', ',').replace('<YEAR>', year)
+            rv.append((regex, re.compile(regex)))
+        return rv
+
+    @classmethod
+    def parse_options(cls, options):
+        """
+        Process the supplied configuration.
+
+        This populates the :attr:`author_re`, :attr:`copyright_re`, and
+        :attr:`license_re` attributes. For each configuration option, this
+        substitutes ``<COMMA>`` and ``<YEAR>`` as appropriate, then compiles
+        each regex.
+        """
+        for option in ('author_re', 'copyright_re', 'license_re'):
+            regexes = cls._parse_option(options, option)
+            setattr(cls, option, [regex[1] for regex in regexes])
+
+    def __init__(self, tree, filename):
+        """Initialize the checker; nothing special here."""
         self.filename = filename
         self.tree = tree
 
     def run(self):
         """Run the :class:`Checker` on a :attr:`filename`."""
-        tags = [
-            dict(
+        tags = []
+        if self.author_re:
+            tags.append(dict(
                 name='author',
                 error='0',
                 re=author_re,
-                expected=expected_authors,
-            ),
-            dict(
+                expected=self.author_re,
+            ))
+        if self.copyright_re:
+            tags.append(dict(
                 name='copyright',
                 error='1',
                 re=copyright_re,
-                expected=expected_copyrights,
-            ),
-            dict(
+                expected=self.copyright_re,
+            ))
+        if self.license_re:
+            tags.append(dict(
                 name='license',
                 error='2',
                 re=license_re,
-                expected=expected_licenses,
-            ),
-        ]
+                expected=self.license_re,
+            ))
+
         with open(self.filename) as f:
             i = 0
             for line in f:
                 i += 1
                 line = line[:-1]
                 found_tag = None
-                for tag in tags:  # pragma: no branch
+                for tag in tags:
                     match = tag['re'].search(line)
                     if match:
                         found_tag = tag
@@ -123,7 +160,7 @@ class Checker(object):
                             )
                             yield i, 0, msg, type(self)
                         break
-                if found_tag:  # pragma: no branch
+                if found_tag:
                     tags.remove(found_tag)
                     if len(tags) == 0:
                         break

@@ -3,14 +3,14 @@
 Package configuration for flake8-ownership.
 
 :author: Joe Joyce <joe@decafjoe.com>
-:copyright: Joe Joyce, 2016-2017. All rights reserved.
-:license: Proprietary
+:copyright: Copyright (c) Joe Joyce, 2016-2017. All rights reserved.
+:license: BSD
 """
 from setuptools import setup
 
 
 name = 'flake8-ownership'
-version = '0.2.0'
+version = '0.9.0'
 requires = ()
 
 

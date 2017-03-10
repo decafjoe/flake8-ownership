@@ -15,7 +15,10 @@ name = 'flake8-ownership'
 version = '0.9.3'
 requires = ()
 
-readme = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.rst')
+root = os.path.abspath(os.path.dirname(__file__))
+changelog = open(os.path.join(root, 'CHANGELOG.rst')).read()
+readme = open(os.path.join(root, 'README.rst')).read()
+long_description = '%s\n\n%s' % (readme, changelog)
 
 
 setup(
@@ -31,7 +34,7 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
     ],
-    description='Checks for author, copyright, and license attributes.',
+    description='Checks for author, copyright, and license info.',
     entry_points={
         'flake8.extension': [
             '%(name)s = %(name)s:Checker' % dict(name=name.replace('-', '_')),
@@ -39,7 +42,7 @@ setup(
     },
     install_requires=requires,
     license='BSD',
-    long_description=open(readme).read(),
+    long_description=long_description,
     name=name,
     package_dir={'': 'src'},
     py_modules=[name.replace('-', '_')],

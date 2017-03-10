@@ -19,6 +19,7 @@ setup(
     author_email='joe@decafjoe.com',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
+        'Framework :: Flake8',
         'Intended Audience :: Developers',
         'License :: Other/Proprietary License',
         'Natural Language :: English',

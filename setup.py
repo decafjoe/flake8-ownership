@@ -34,7 +34,7 @@ setup(
         ],
     },
     install_requires=requires,
-    license='Proprietary',
+    license='BSD',
     long_description=open('README.rst').read(),
     name=name,
     package_dir={'': 'src'},

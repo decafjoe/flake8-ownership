@@ -61,3 +61,9 @@ if [ $local_commit != $remote_commit ]; then
     echo error: you have diverged from $tracking_branch, please resolve >&2
     exit 1
 fi
+
+echo
+read -p 'Is the CHANGELOG.rst file up to date and ready to go? [y/N] ' yn
+if [ x"$yn" != xy ]; then
+    exit 1
+fi

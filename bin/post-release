@@ -28,19 +28,19 @@ minor=$(echo $version | awk -F. '{print $2}')
 
 search="version = '$current_version'"
 replace="version = '$version'"
-sed -i '' "s/$search/$replace/g" "$root_dir/setup.py"
+sed -i "s/$search/$replace/g" "$root_dir/setup.py"
 
 search="__version__ = '$current_version'"
 replace="__version__ = '$version'"
-sed -i '' "s/$search/$replace/" "$version_file"
+sed -i "s/$search/$replace/" "$version_file"
 
 search="version = u'$current_major.$current_minor'"
 replace="version = u'$major.$minor'"
-sed -i '' "s/$search/$replace/" "$root_dir/doc/conf.py"
+sed -i "s/$search/$replace/" "$root_dir/doc/conf.py"
 
 search="release = u'$current_version'"
 replace="release = u'$version'"
-sed -i '' "s/$search/$replace/" "$root_dir/doc/conf.py"
+sed -i "s/$search/$replace/" "$root_dir/doc/conf.py"
 
 git add "$root_dir/setup.py" "$root_dir/doc/conf.py" "$version_file"
 git commit -m "Bumps version from $current_version to $version after release."

@@ -12,13 +12,13 @@ PROJECT = flake8-ownership
 VIRTUALENV ?= virtualenv
 
 # Base directories
-PWD := $(shell pwd)
-ENV = $(PWD)/.env
+ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+ENV = $(ROOT)/.env
 
 # Code
-ENV_SOURCES = $(PWD)/setup.py $(PWD)/requirements.txt
-README = $(PWD)/README.rst
-SOURCES = $(PWD)/src/flake8_ownership.py
+ENV_SOURCES = $(ROOT)/setup.py $(ROOT)/requirements.txt
+README = $(ROOT)/README.rst
+SOURCES = $(ROOT)/src/flake8_ownership.py
 UPDATED_ENV = $(ENV)/updated
 
 # Commands
@@ -30,17 +30,17 @@ SPHINX = $(ENV)/bin/sphinx-build
 TWINE = $(ENV)/bin/twine
 
 # Distribution
-VERSION = $(shell python setup.py --version)
-DIST = $(PWD)/dist/$(PROJECT)-$(VERSION).tar.gz
+VERSION = $(shell python $(ROOT)/setup.py --version)
+DIST = $(ROOT)/dist/$(PROJECT)-$(VERSION).tar.gz
 
 # Python package settings
 FORCE_UPDATES_TO_PYTHON_PACKAGES = pip setuptools wheel
 IGNORE_UPDATES_TO_PYTHON_PACKAGES = "\($(PROJECT)\)\|\(virtualenv\)"
 
 # Git hooks
-PRE_COMMIT = $(PWD)/.git/hooks/pre-commit
+PRE_COMMIT = $(ROOT)/.git/hooks/pre-commit
 PRE_COMMIT_HOOK = make lint
-PRE_PUSH = $(PWD)/.git/hooks/pre-push
+PRE_PUSH = $(ROOT)/.git/hooks/pre-push
 PRE_PUSH_HOOK = make test
 
 
@@ -71,8 +71,8 @@ $(PIP) : $(PYTHON)
 $(UPDATED_ENV) : $(PIP) $(ENV_SOURCES)
 	$(PIP) install -U $(FORCE_UPDATES_TO_PYTHON_PACKAGES)
 	$(PIP) install \
-		--editable . \
-		--requirement requirements.txt
+		--editable $(ROOT) \
+		--requirement $(ROOT)/requirements.txt
 	touch $(UPDATED_ENV)
 
 env : $(PRE_COMMIT) $(PRE_PUSH) $(UPDATED_ENV)
@@ -84,29 +84,33 @@ check-update : env
 		printf "All libraries are up to date :)\n"
 
 pristine : clean
-	git clean -dfX
+	cd $(ROOT); git clean -dfX
 
 
 # =============================================================================
 # ----- QA/Test ---------------------------------------------------------------
 # =============================================================================
 
-$(PRE_COMMIT) : $(PWD)/Makefile
+$(PRE_COMMIT) : $(ROOT)/Makefile
 	echo "$(PRE_COMMIT_HOOK)" > $(PRE_COMMIT)
 	chmod +x $(PRE_COMMIT)
 
-$(PRE_PUSH) : $(PWD)/Makefile
+$(PRE_PUSH) : $(ROOT)/Makefile
 	echo "$(PRE_PUSH_HOOK)" > $(PRE_PUSH)
 	chmod +x $(PRE_PUSH)
 
 lint : env
-	$(FLAKE8) --ignore=D203 doc/conf.py setup.py src
+	$(FLAKE8) --ignore=D203 \
+		$(ROOT)/doc/conf.py \
+		$(ROOT)/setup.py \
+		$(ROOT)/src
 	@printf "Flake8 is happy :)\n"
 
 test : lint
-	$(COVERAGE) run setup.py test
-	$(COVERAGE) report
-	$(COVERAGE) html
+	cd $(ROOT); \
+		$(COVERAGE) run setup.py test; \
+		$(COVERAGE) report; \
+		$(COVERAGE) html
 
 
 # =============================================================================
@@ -114,10 +118,10 @@ test : lint
 # =============================================================================
 
 html : env
-	cd doc; make html SPHINXBUILD=$(SPHINX)
+	cd $(ROOT)/doc; make html SPHINXBUILD=$(SPHINX)
 
 pdf : env
-	cd doc; make latexpdf SPHINXBUILD=$(SPHINX)
+	cd $(ROOT)/doc; make latexpdf SPHINXBUILD=$(SPHINX)
 
 docs: html pdf
 
@@ -128,20 +132,20 @@ docs: html pdf
 
 $(DIST) : $(README) $(SOURCES) $(UPDATED_ENV)
 	cp $(README) README
-	-$(PYTHON) setup.py sdist && touch $(DIST)
+	-cd $(ROOT) && $(PYTHON) setup.py sdist && touch $(DIST)
 	rm README
 
 dist : $(DIST)
 
 release : clean dist
-	$(PWD)/bin/pre-release
+	$(ROOT)/bin/pre-release
 	$(TWINE) upload $(DIST)
-	$(PWD)/bin/post-release $(VERSION)
+	$(ROOT)/bin/post-release $(VERSION)
 
 clean :
-	rm -rf \
-		$(shell find . -type f -name .DS_Store) \
-		$(shell find src -type f -name *.pyc) \
+	cd $(ROOT) && rm -rf \
+		$(shell find $(ROOT) -type f -name .DS_Store) \
+		$(shell find $(ROOT)/src -type f -name *.pyc) \
 		.coverage \
 		coverage \
 		dist

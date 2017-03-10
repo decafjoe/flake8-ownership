@@ -6,12 +6,16 @@ Package configuration for flake8-ownership.
 :copyright: Copyright (c) Joe Joyce, 2016-2017. All rights reserved.
 :license: BSD
 """
+import os
+
 from setuptools import setup
 
 
 name = 'flake8-ownership'
 version = '0.9.3'
 requires = ()
+
+readme = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.rst')
 
 
 setup(
@@ -35,7 +39,7 @@ setup(
     },
     install_requires=requires,
     license='BSD',
-    long_description=open('README.rst').read(),
+    long_description=open(readme).read(),
     name=name,
     package_dir={'': 'src'},
     py_modules=[name.replace('-', '_')],

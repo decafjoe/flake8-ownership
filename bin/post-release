@@ -3,6 +3,14 @@
 set -o errexit
 set -o nounset
 
+function xpsed {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' "$@"
+    else
+        sed -i "$@"
+    fi
+}
+
 root_dir="$(cd $(dirname $0)/.. && pwd)"
 version_file="$root_dir/src/flake8_ownership.py"
 
@@ -16,7 +24,7 @@ next_minor=$(echo $current_version | awk -F. '{print $2}')
 next_release=$(echo "$current_release + 1" | bc)
 next_version=$next_major.$next_minor.$next_release
 
-git tag $current_version
+#git tag $current_version
 
 read -p "Next version (current: $current_version) [$next_version]: " version
 if [ -z $version ]; then
@@ -28,19 +36,19 @@ minor=$(echo $version | awk -F. '{print $2}')
 
 search="version = '$current_version'"
 replace="version = '$version'"
-sed -i "s/$search/$replace/g" "$root_dir/setup.py"
+xpsed "s/$search/$replace/g" "$root_dir/setup.py"
 
 search="__version__ = '$current_version'"
 replace="__version__ = '$version'"
-sed -i "s/$search/$replace/" "$version_file"
+xpsed "s/$search/$replace/" "$version_file"
 
 search="version = u'$current_major.$current_minor'"
 replace="version = u'$major.$minor'"
-sed -i "s/$search/$replace/" "$root_dir/doc/conf.py"
+xpsed "s/$search/$replace/" "$root_dir/doc/conf.py"
 
 search="release = u'$current_version'"
 replace="release = u'$version'"
-sed -i "s/$search/$replace/" "$root_dir/doc/conf.py"
+xpsed "s/$search/$replace/" "$root_dir/doc/conf.py"
 
 git add "$root_dir/setup.py" "$root_dir/doc/conf.py" "$version_file"
 git commit -m "Bumps version from $current_version to $version after release."

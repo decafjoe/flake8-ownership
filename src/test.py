@@ -253,7 +253,8 @@ class CheckerTest(unittest.TestCase):
 
     def test_stops_checking_when_satisfied(self):
         """Check that the checker returns immediately once it is satisfied."""
-        self.write(extra=':author: Not the desired author')
+        self.configure(author=True)
+        self.write(author=test_author, extra=':author: Not the desired author')
         errors = self.check()
         fmt = 'expected no errors, got %i'
         self.assertEqual(0, len(errors), fmt % len(errors))

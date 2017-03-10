@@ -23,4 +23,4 @@ Changelog
 Pre-0.9.2
 ---------
 
-Initial releases and testing of the release cycle.
+Initial releases and testing of the release tooling.

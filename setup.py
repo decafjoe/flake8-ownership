@@ -12,7 +12,7 @@ from setuptools import setup
 
 
 name = 'flake8-ownership'
-version = '0.9.4'
+version = '0.9.5'
 requires = ()
 
 root = os.path.abspath(os.path.dirname(__file__))

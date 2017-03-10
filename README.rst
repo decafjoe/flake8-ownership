@@ -17,15 +17,14 @@ For example, the configuration for this project is::
 
   [flake8]
   author-re = ^Joe Joyce <joe@decafjoe.com>$
-  copyright-re =
-    ^Copyright \(c\) Joe Joyce<COMMA> 2016-<YEAR>. All rights reserved.$
+  copyright-re = ^Copyright \(c\) Joe Joyce<COMMA> 2016-<YEAR>.$
   license-re = ^BSD$
 
 This configuration ensures that each file in the project has the
 following lines::
 
   :author: Joe Joyce <joe@decafjoe.com>
-  :copyright: Copyright (c) Joe Joyce, 2016-2017. All rights reserved.
+  :copyright: Copyright (c) Joe Joyce, 2016-2017.
   :license: BSD
 
 If any of those lines are missing, it's a violation. If they don't
@@ -95,7 +94,7 @@ Great, but copyright lines often have commas in them::
   [flake8]
   copyright-re =
     Copyright 2016-2017, Joe Joyce,
-    Copyright 2015 by Armin Ronacher and contributors.
+    Copyright 2015 by Other Project and its contributers.
 
 Whoops! The configuration parser reads this as three different
 regexes. Maybe we can escape the comma?
@@ -105,7 +104,7 @@ regexes. Maybe we can escape the comma?
    [flake8]
    copyright-re =
     Copyright 2016-2017\, Joe Joyce,
-    Copyright 2015 by Armin Ronacher and contributors.
+    Copyright 2015 by Other project and its contributors.
 
 No dice.
 
@@ -117,7 +116,7 @@ Python format strings?
    [flake8]
    copyright-re =
     Copyright 2016-2017%(comma)s Joe Joyce,
-    Copyright 2015 by Armin Ronacher and contributors.
+    Copyright 2015 by Other Project and its contributers.
 
 Bzzzt. The config parser tries to interpolate this value from the
 config file itself. And we don't control the config parsing behavior
@@ -130,7 +129,7 @@ uses::
    [flake8]
    copyright-re =
     Copyright 2016-2017<COMMA> Joe Joyce,
-    Copyright 2015 by Armin Ronacher and contributors.
+    Copyright 2015 by Other Project and its contributers.
 
 The config parser doesn't do anything clever with this, and
 flake8-ownership can replace ``<COMMA>`` with ``,`` when it processes

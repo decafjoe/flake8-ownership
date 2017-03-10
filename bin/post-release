@@ -6,65 +6,6 @@ set -o nounset
 root_dir="$(cd $(dirname $0)/.. && pwd)"
 version_file="$root_dir/src/flake8_ownership.py"
 
-if [ $(git rev-parse --abbrev-ref HEAD) != master ]; then
-    echo error: you must be on the master branch to cut a release >&2
-    exit 1
-fi
-
-# Cribbed from http://stackoverflow.com/a/3879077
-git update-index -q --ignore-submodules --refresh
-
-dirty_worktree=no
-
-if ! git diff-index --cached --quiet HEAD >/dev/null 2>&1; then
-    dirty_worktree=yes
-    echo
-    echo Uncommitted changes:
-    git diff-index --cached --name-status -r HEAD
-    echo
-fi
-
-if ! git diff-files --quiet >/dev/null 2>&1; then
-    dirty_worktree=yes
-    echo
-    echo Unstaged changes:
-    git diff-files --name-status -r
-    echo
-fi
-
-if ! git ls-files --other --exclude-standard >/dev/null 2>&1; then
-    dirty_worktree=yes
-    echo
-    echo Utracked files:
-    git ls-files --other --exclude-standard
-    echo
-fi
-
-if [ $dirty_worktree = yes ]; then
-    echo error: you must have a clean work tree to cut a release >&2
-    exit 1
-fi
-
-git fetch
-
-tracking_branch=$(git rev-parse --abbrev-ref @{u})
-local_commit=$(git rev-parse @{0})
-remote_commit=$(git rev-parse @{u})
-base_commit=$(git merge-base @{0} @{u})
-
-if [ $local_commit != $remote_commit ]; then
-    if [ $local_commit = $base_commit ]; then
-        echo error: you are behind $tracking_branch, please pull >&2
-        exit 1
-    fi
-    if [ $remote_commit = $base_commit ]; then
-        echo error: you are ahead of $tracking_branch, please push >&2
-        exit 1
-    fi
-    echo error: you have diverged from $tracking_branch, please resolve >&2
-    exit 1
-fi
-
 current_version=$1
 current_major=$(echo $current_version | awk -F. '{print $1}')
 current_minor=$(echo $current_version | awk -F. '{print $2}')

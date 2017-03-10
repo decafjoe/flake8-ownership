@@ -19,6 +19,7 @@ ENV = $(PWD)/.env
 ENV_SOURCES = $(PWD)/setup.py $(PWD)/requirements.txt
 README = $(PWD)/README.rst
 SOURCES = $(PWD)/src/flake8_ownership.py
+UPDATED_ENV = $(ENV)/updated
 
 # Commands
 COVERAGE = $(ENV)/bin/coverage
@@ -26,7 +27,7 @@ FLAKE8 = $(ENV)/bin/flake8
 PIP = $(ENV)/bin/pip
 PYTHON = $(ENV)/bin/python
 SPHINX = $(ENV)/bin/sphinx-build
-UPDATED_ENV = $(ENV)/updated
+TWINE = $(ENV)/bin/twine
 
 # Distribution
 VERSION = $(shell python setup.py --version)
@@ -132,8 +133,10 @@ $(DIST) : $(README) $(SOURCES) $(UPDATED_ENV)
 
 dist : $(DIST)
 
-release : dist
-	$(PWD)/bin/make-release $(VERSION)
+release : clean dist
+	$(PWD)/bin/pre-release
+	$(TWINE) upload $(DIST)
+	$(PWD)/bin/post-release $(VERSION)
 
 clean :
 	rm -rf \

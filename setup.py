@@ -13,7 +13,9 @@ from setuptools import setup
 
 name = 'flake8-ownership'
 version = '0.9.5'
-requires = ()
+requires = (
+    'flake8>=3,<4',
+)
 
 root = os.path.abspath(os.path.dirname(__file__))
 changelog = open(os.path.join(root, 'CHANGELOG.rst')).read()

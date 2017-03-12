@@ -24,8 +24,6 @@ next_minor=$(echo $current_version | awk -F. '{print $2}')
 next_release=$(echo "$current_release + 1" | bc)
 next_version=$next_major.$next_minor.$next_release
 
-#git tag $current_version
-
 read -p "Next version (current: $current_version) [$next_version]: " version
 if [ -z $version ]; then
     version=$next_version
@@ -50,6 +48,7 @@ search="release = u'$current_version'"
 replace="release = u'$version'"
 xpsed "s/$search/$replace/" "$root_dir/doc/conf.py"
 
+git tag $current_version
 git add "$root_dir/setup.py" "$root_dir/doc/conf.py" "$version_file"
 git commit -m "Bumps version from $current_version to $version after release."
 git push --tags --no-verify bitbucket master

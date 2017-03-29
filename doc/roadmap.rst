@@ -4,14 +4,6 @@
 =========
 
 
-Multiple Python Versions
-========================
-
-It would be nice to make this code work on both Python 2 and 3. This
-would, obviously, require some updates to the testing infrastructure.
-(Tox?)
-
-
 Support Flake8 < 3.0?
 =====================
 

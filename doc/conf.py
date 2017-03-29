@@ -64,8 +64,8 @@ latex_documents = [
     (
         master_doc,
         '%s.tex' % project,
-        unicode(project),
-        unicode(author),
+        project,
+        author,
         'manual',
     ),
 ]
@@ -83,7 +83,7 @@ man_pages = [
     (
         master_doc,
         project,
-        unicode(project),
+        project,
         [author],
         7,
     ),
@@ -107,7 +107,7 @@ texinfo_documents = [
     (
         master_doc,
         project,
-        unicode(project),
+        project,
         author,
         project,
         texinfo_description,

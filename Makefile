@@ -9,6 +9,9 @@ PROJECT = flake8-ownership
 # Virtualenv command
 VIRTUALENV ?= virtualenv
 
+# "Main" python version for development.
+PYTHON_VERSION = python3.6
+
 # Base directories
 ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 ENV = $(ROOT)/.env
@@ -63,7 +66,7 @@ help :
 # =============================================================================
 
 $(PYTHON) :
-	$(VIRTUALENV) --python=python2.7 $(ENV)
+	$(VIRTUALENV) --python=$(PYTHON_VERSION) $(ENV)
 
 $(PIP) : $(PYTHON)
 

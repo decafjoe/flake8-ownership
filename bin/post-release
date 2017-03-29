@@ -19,10 +19,8 @@ current_major=$(echo $current_version | awk -F. '{print $1}')
 current_minor=$(echo $current_version | awk -F. '{print $2}')
 current_release=$(echo $current_version | awk -F. '{print $3}')
 
-next_major=$(echo $current_version | awk -F. '{print $1}')
-next_minor=$(echo $current_version | awk -F. '{print $2}')
 next_release=$(echo "$current_release + 1" | bc)
-next_version=$next_major.$next_minor.$next_release
+next_version=$current_major.$current_minor.$next_release
 
 read -p "Next version (current: $current_version) [$next_version]: " version
 if [ -z $version ]; then

@@ -150,6 +150,7 @@ class CheckerTest(unittest.TestCase):
         :rtype: :class:`list`
         """
         self._tmp.flush()
+        self._tmp.close()
         return list(Checker(None, self._tmp_path).run())
 
     def configure(self, author=False, copyright=False, license=False):

@@ -18,8 +18,17 @@ requires = (
 )
 
 root = os.path.abspath(os.path.dirname(__file__))
-changelog = open(os.path.join(root, 'CHANGELOG.rst')).read()
-readme = open(os.path.join(root, 'README.rst')).read()
+
+try:
+    changelog = open(os.path.join(root, 'CHANGELOG.rst')).read()
+except IOError:
+    changelog = 'Changelog not present.'
+
+try:
+    readme = open(os.path.join(root, 'README.rst')).read()
+except IOError:
+    readme = 'Readme not present.'
+
 long_description = '%s\n\n%s' % (readme, changelog)
 
 

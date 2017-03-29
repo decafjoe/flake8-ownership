@@ -25,6 +25,7 @@ FLAKE8 = $(ENV)/bin/flake8
 PIP = $(ENV)/bin/pip
 PYTHON = $(ENV)/bin/python
 SPHINX = $(ENV)/bin/sphinx-build
+TOX = $(ENV)/bin/tox
 TWINE = $(ENV)/bin/twine
 
 # Distribution
@@ -104,11 +105,16 @@ lint : env
 		$(ROOT)/src
 	@printf "Flake8 is happy :)\n"
 
-test : lint
+test-cover :
 	cd $(ROOT); \
 		$(COVERAGE) run setup.py test; \
 		$(COVERAGE) report; \
 		$(COVERAGE) html
+
+test-tox :
+	cd $(ROOT); $(TOX)
+
+test : lint test-tox test-cover
 
 
 # =============================================================================

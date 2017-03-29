@@ -64,6 +64,17 @@ tracker on Bitbucket. Code and documentation patches are welcome, but
 please shoot me a message before spending much time, so we can make
 sure the change is in line with the goals of the project.
 
+For development you'll need:
+
+* Python 2.6, 2.7, 3.3, 3.4, 3.5, and 3.6
+* PyPy 2 and 3
+* Standard build tools like gcc, make, etc
+
+To get started, clone this repo, ``cd`` into its directory, and run
+``make test``. This will install the development tools and virtual
+environments, as well as run the linter and full test suite under all
+supported versions. If the tests pass, you're all set up.
+
 
 .. _My apologies:
 

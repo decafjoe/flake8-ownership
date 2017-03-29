@@ -4,8 +4,6 @@
 # Copyright Joe Joyce, 2016-2017. All rights reserved.
 #
 
-.PHONY = check-update clean dist docs env help html lint pdf pristine test
-
 PROJECT = flake8-ownership
 
 # Virtualenv command

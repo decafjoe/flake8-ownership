@@ -2,8 +2,8 @@
 Changelog
 =========
 
-0.9.5
------
+0.10.0
+------
 
 * Formalized and documented Python 3 and PyPy support.
 

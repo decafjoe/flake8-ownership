@@ -5,7 +5,7 @@ Changelog
 0.9.4
 -----
 
-* Fixes copyright on this project.
+* Fixed copyright on this project.
 
 
 0.9.3

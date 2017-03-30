@@ -9,17 +9,21 @@ PROJECT = flake8-ownership
 # Virtualenv command
 VIRTUALENV ?= virtualenv
 
-# "Main" python version for development.
+# "Main" python version for development
 PYTHON_VERSION = python3.6
 
 # Base directories
 ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 ENV = $(ROOT)/.env
+DOC = $(ROOT)/doc
+SRC = $(ROOT)/src
 
 # Code
-ENV_SOURCES = $(ROOT)/setup.py $(ROOT)/requirements.txt
+SETUP = $(ROOT)/setup.py
+REQUIREMENTS = $(ROOT)/requirements.txt
+ENV_SOURCES = $(SETUP) $(REQUIREMENTS)
 README = $(ROOT)/README.rst
-SOURCES = $(ROOT)/src/flake8_ownership.py
+SOURCES := $(shell find $(SRC) -name "*.py")
 UPDATED_ENV = $(ENV)/updated
 
 # Commands
@@ -74,7 +78,7 @@ $(UPDATED_ENV) : $(PIP) $(ENV_SOURCES)
 	$(PIP) install -U $(FORCE_UPDATES_TO_PYTHON_PACKAGES)
 	$(PIP) install \
 		--editable $(ROOT) \
-		--requirement $(ROOT)/requirements.txt
+		--requirement $(REQUIREMENTS)
 	touch $(UPDATED_ENV)
 
 env : $(PRE_COMMIT) $(PRE_PUSH) $(UPDATED_ENV)
@@ -102,10 +106,7 @@ $(PRE_PUSH) : $(ROOT)/Makefile
 	chmod +x $(PRE_PUSH)
 
 lint : env
-	$(FLAKE8) --ignore=D203 \
-		$(ROOT)/doc/conf.py \
-		$(ROOT)/setup.py \
-		$(ROOT)/src
+	$(FLAKE8) --ignore=D203 $(DOC)/conf.py $(SETUP) $(SOURCES)
 	@printf "Flake8 is happy :)\n"
 
 test-cover :
@@ -125,10 +126,10 @@ test : lint test-tox test-cover
 # =============================================================================
 
 html : env
-	cd $(ROOT)/doc; make html SPHINXBUILD=$(SPHINX)
+	cd $(DOC); make html SPHINXBUILD=$(SPHINX)
 
 pdf : env
-	cd $(ROOT)/doc; make latexpdf SPHINXBUILD=$(SPHINX)
+	cd $(DOC); make latexpdf SPHINXBUILD=$(SPHINX)
 
 docs: html pdf
 
@@ -152,7 +153,7 @@ release : clean dist
 clean :
 	cd $(ROOT) && rm -rf \
 		$(shell find $(ROOT) -type f -name .DS_Store) \
-		$(shell find $(ROOT)/src -type f -name *.pyc) \
+		$(shell find $(SRC) -type f -name *.pyc) \
 		.coverage \
 		coverage \
 		dist

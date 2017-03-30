@@ -47,7 +47,7 @@ IGNORE_UPDATES_TO_PYTHON_PACKAGES = "\($(PROJECT)\)\|\(virtualenv\)"
 PRE_COMMIT = $(ROOT)/.git/hooks/pre-commit
 PRE_COMMIT_HOOK = make lint
 PRE_PUSH = $(ROOT)/.git/hooks/pre-push
-PRE_PUSH_HOOK = make test
+PRE_PUSH_HOOK = make lint test-tox
 
 
 help :

@@ -31,7 +31,6 @@ except IOError:
 
 long_description = '%s\n\n%s' % (readme, changelog)
 
-
 setup(
     author='Joe Joyce',
     author_email='joe@decafjoe.com',

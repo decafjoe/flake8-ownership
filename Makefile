@@ -146,8 +146,9 @@ $(DIST) : $(README) $(SOURCES) $(UPDATED_ENV)
 
 dist : $(DIST)
 
-release : clean dist
+release :
 	$(ROOT)/bin/pre-release
+	cd $(ROOT); make lint test-tox clean dist
 	$(TWINE) upload $(DIST)
 	$(ROOT)/bin/post-release $(VERSION)
 

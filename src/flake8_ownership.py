@@ -12,7 +12,7 @@ import re
 #: Version of the extension.
 #:
 #: :type: :class:`str`
-__version__ = '0.10.2'
+__version__ = '0.10.3'
 
 #: Regex that matches the ``:author:`` line.
 #:

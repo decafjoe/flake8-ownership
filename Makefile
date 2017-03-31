@@ -22,6 +22,7 @@ SRC = $(ROOT)/src
 SETUP = $(ROOT)/setup.py
 REQUIREMENTS = $(ROOT)/requirements.txt
 ENV_SOURCES = $(SETUP) $(REQUIREMENTS)
+CHANGELOG = $(ROOT)/CHANGELOG.rst
 README = $(ROOT)/README.rst
 SOURCES := $(shell find $(SRC) -name "*.py")
 UPDATED_ENV = $(ENV)/updated
@@ -139,9 +140,9 @@ docs: html pdf
 # =============================================================================
 
 $(DIST) : $(README) $(SOURCES) $(UPDATED_ENV)
-	cp $(README) README
+	mv $(CHANGELOG) CHANGELOG; mv $(README) README
 	-cd $(ROOT) && $(PYTHON) setup.py sdist && touch $(DIST)
-	rm README
+	mv CHANGELOG $(CHANGELOG); mv README $(README)
 
 dist : $(DIST)
 

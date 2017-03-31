@@ -2,6 +2,14 @@
 Changelog
 =========
 
+
+0.10.1
+------
+
+* Cleaned up packaging (include CHANGELOG and LICENSE in package, do
+  not include redundant README.rst).
+
+
 0.10.0
 ------
 

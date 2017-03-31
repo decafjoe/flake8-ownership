@@ -19,16 +19,24 @@ requires = (
 
 root = os.path.abspath(os.path.dirname(__file__))
 
-try:
-    changelog = open(os.path.join(root, 'CHANGELOG.rst')).read()
-except IOError:
-    changelog = 'Changelog not present.'
 
-try:
-    readme = open(os.path.join(root, 'README.rst')).read()
-except IOError:
-    readme = 'Readme not present.'
+def read(filename, default):
+    """
+    Read and return content of FILENAME (or FILENAME.rst) from root directory.
 
+    If neither of the files exist, ``default`` is returned.
+    """
+    path = os.path.join(root, filename)
+    if os.path.exists(path):
+        return open(path).read()
+    path = '%s.rst' % path
+    if os.path.exists(path):
+        return open(path).read()
+    return default
+
+
+changelog = read('CHANGELOG', 'No changelog present.')
+readme = read('README', 'No readme present.')
 long_description = '%s\n\n%s' % (readme, changelog)
 
 setup(

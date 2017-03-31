@@ -3,6 +3,12 @@ Changelog
 =========
 
 
+0.10.2
+------
+
+* Fixed packaging bug related to changes in 0.10.1.
+
+
 0.10.1
 ------
 

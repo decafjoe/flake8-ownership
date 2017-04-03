@@ -59,9 +59,9 @@ Contributing
 ============
 
 There shouldn't be much to contribute. This is a pretty small, simple
-project. If you run into bugs, please file them in the project's issue
-tracker on Bitbucket. Code and documentation patches are welcome, but
-please shoot me a message before spending much time, so we can make
+project. If you run into bugs, please file them in the project's `issue
+tracker on Bitbucket`_. Code and documentation patches are welcome, but
+please file a feature request before spending much time, so we can make
 sure the change is in line with the goals of the project.
 
 For development you'll need:
@@ -75,6 +75,7 @@ To get started, clone this repo, ``cd`` into its directory, and run
 environments, as well as run the linter and full test suite under all
 supported versions. If the tests pass, you're all set up.
 
+.. _issue tracker on Bitbucket: https://bitbucket.org/decafjoe/flake8-ownership/issues
 
 .. _My apologies:
 

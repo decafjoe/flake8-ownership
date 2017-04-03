@@ -3,6 +3,12 @@ Changelog
 =========
 
 
+0.10.3
+------
+
+* Links the issue tracker in the README.
+
+
 0.10.2
 ------
 

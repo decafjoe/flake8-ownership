@@ -91,7 +91,8 @@ check-update : env
 		printf "All libraries are up to date :)\n"
 
 pristine : clean
-	cd $(ROOT); git clean -dfX
+	git -C $(ROOT) clean -dfX
+	rm $(PRE_COMMIT) $(PRE_PUSH)
 
 
 # =============================================================================
@@ -127,10 +128,10 @@ test : lint test-tox test-cover
 # =============================================================================
 
 html : env
-	cd $(DOC); make html SPHINXBUILD=$(SPHINX)
+	make -C $(DOC) html SPHINXBUILD=$(SPHINX)
 
 pdf : env
-	cd $(DOC); make latexpdf SPHINXBUILD=$(SPHINX)
+	make -C $(DOC) latexpdf SPHINXBUILD=$(SPHINX)
 
 docs: html pdf
 

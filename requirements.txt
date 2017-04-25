@@ -9,6 +9,7 @@ flake8-quotes==0.9.0
 flake8-todo==0.7
 mock==2.0.0
 pep8-naming==0.4.1
+pydocstyle<2  # required until flake8-docstrings is compatible with 2.x
 sphinx==1.5.5
 tox==2.7.0
 twine==1.8.1

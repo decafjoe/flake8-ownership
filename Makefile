@@ -53,8 +53,8 @@ PRE_PUSH_HOOK = make lint test-tox
 
 help :
 	@printf "usage: make <target> where target is one of:\n\n"
-	@printf "  check-update  Check for updates to packages\n"
-	@printf "  clean         Delete generated files (dists, .pyc, etc)\n"
+	@printf "  check-update  Check for updates to dependencies\n"
+	@printf "  clean         Delete build artifacts (dists, .pyc, etc)\n"
 	@printf "  docs          Generate PDF and HTML documentation\n"
 	@printf "  dist          Create sdist in dist/\n"
 	@printf "  env           Install development environment\n"
@@ -63,7 +63,9 @@ help :
 	@printf "  pdf           Generate PDF documentation\n"
 	@printf "  pristine      Delete development environment\n"
 	@printf "  release       Cut a release of the software\n"
-	@printf "  test          Run tests\n\n"
+	@printf "  test          Run all tests\n"
+	@printf "  test-cover    Run tests, report test coverage\n"
+	@printf "  test-tox      Run tests, all supported Python versions\n\n"
 
 
 # =============================================================================

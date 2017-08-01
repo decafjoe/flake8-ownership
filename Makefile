@@ -113,13 +113,13 @@ lint : env
 	$(FLAKE8) --ignore=D203 $(DOC)/conf.py $(SETUP) $(SOURCES)
 	@printf "Flake8 is happy :)\n"
 
-test-cover :
+test-cover : env
 	cd $(ROOT); \
 		$(COVERAGE) run setup.py test; \
 		$(COVERAGE) report; \
 		$(COVERAGE) html
 
-test-tox :
+test-tox : env
 	cd $(ROOT); $(TOX)
 
 test : lint test-tox test-cover

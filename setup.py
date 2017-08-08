@@ -61,7 +61,7 @@ setup(
     description='Checks for author, copyright, and license info.',
     entry_points={
         'flake8.extension': [
-            '%(name)s = %(name)s:Checker' % dict(name=name.replace('-', '_')),
+            'O10 = %s:Checker' % name.replace('-', '_'),
         ],
     },
     install_requires=requires,

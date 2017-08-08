@@ -3,6 +3,12 @@ Changelog
 =========
 
 
+1.0.1
+-----
+
+* Fixes specification of the ``flake8.extension`` entry point.
+
+
 1.0.0
 -----
 

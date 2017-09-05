@@ -68,29 +68,30 @@ class Checker(object):
         """Add --author-re, --copyright-re, and --license-re options."""
         parser.add_option(
             '--author-re',
-            comma_separated_list=True,
             help='regular expression(s) for valid :author: lines',
             parse_from_config=True,
         )
         parser.add_option(
             '--copyright-re',
-            comma_separated_list=True,
             help='regular expression(s) for valid :copyright: lines',
             parse_from_config=True,
         )
         parser.add_option(
             '--license-re',
-            comma_separated_list=True,
             help='regular expression(s) for valid :license: lines',
             parse_from_config=True,
         )
 
     @classmethod
     def _parse_option(cls, options, option):
+        regexes = getattr(options, option, ()).split(',')
+        if len(regexes) == 1 and regexes[0] == '':
+            return []
+
         rv = []
         year = str(datetime.datetime.today().year)
-        for regex in getattr(options, option, ()):
-            regex = regex.replace('<COMMA>', ',').replace('<YEAR>', year)
+        for r in regexes:
+            regex = r.strip().replace('<COMMA>', ',').replace('<YEAR>', year)
             rv.append((regex, re.compile(regex)))
         return rv
 

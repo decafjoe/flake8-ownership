@@ -63,7 +63,6 @@ class OptionTest(unittest.TestCase):
         for tag in ('author', 'copyright', 'license'):
             expected_calls.append(mock.call(
                 '--%s-re' % tag,
-                comma_separated_list=True,
                 help='regular expression(s) for valid :%s: lines' % tag,
                 parse_from_config=True,
             ))
@@ -74,7 +73,7 @@ class OptionTest(unittest.TestCase):
     def test_parse_option(self):
         """Test :meth:`flake8_ownership.Checker._parse_option`."""
         options = mock.Mock()
-        options.test = ['item 1', 'item 2<COMMA> <YEAR>']
+        options.test = 'item 1, item 2<COMMA> <YEAR>'
         regexes = Checker._parse_option(options, 'test')
         self.assertEqual(2, len(regexes))
         r1, r2 = regexes
@@ -91,9 +90,9 @@ class OptionTest(unittest.TestCase):
     def test_parse_options(self):
         """Test :meth:`flake8_ownership.Checker.parse_options`."""
         options = mock.Mock()
-        options.author_re = []
-        options.copyright_re = ['item 1']
-        options.license_re = ['item 2', 'item 3']
+        options.author_re = ''
+        options.copyright_re = 'item 1'
+        options.license_re = 'item 2, item 3'
         Checker.parse_options(options)
         self.assertEqual(0, len(Checker.author_re))
         self.assertEqual(1, len(Checker.copyright_re))

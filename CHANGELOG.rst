@@ -3,6 +3,13 @@ Changelog
 =========
 
 
+1.0.2
+-----
+
+* Fixes embarrassing bug that was causing this extension to do
+  essentially nothing.
+
+
 1.0.1
 -----
 

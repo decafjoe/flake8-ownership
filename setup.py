@@ -12,7 +12,7 @@ from setuptools import setup
 
 
 name = 'flake8-ownership'
-version = '1.0.2'
+version = '1.0.3'
 requires = (
     'flake8>=3,<4',
 )

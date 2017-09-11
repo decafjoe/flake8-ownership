@@ -10,5 +10,5 @@ flake8-todo==0.7
 mock==2.0.0
 pep8-naming==0.4.1
 sphinx==1.6.3
-tox==2.8.1
+tox==2.8.2
 twine==1.9.1

@@ -18,7 +18,7 @@ requires = (
 description = 'A flake8 checker for assuring that author, copyright, and ' \
               'license are specified in source files.'
 long_description = 'Please see the official project page at ' \
-                   'http://flake8_ownership.readthedocs.io.'
+                   'http://flake8-ownership.readthedocs.io.'
 
 setup(
     author='Joe Joyce',

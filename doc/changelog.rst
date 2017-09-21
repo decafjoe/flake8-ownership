@@ -4,6 +4,12 @@
 ===========
 
 
+1.1.1
+=====
+
+* Fixes typo-ed reference to project page in package metadata
+
+
 1.1.0
 =====
 

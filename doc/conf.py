@@ -49,7 +49,7 @@ extensions = [
 # -- HTML ---------------------------------------------------------------------
 # =============================================================================
 
-html_theme = 'pyramid'
+html_theme = 'sphinx_rtd_theme'
 html_static_path = []
 htmlhelp_basename = '%s-doc' % project
 

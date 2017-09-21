@@ -6,6 +6,9 @@
 .. toctree::
    :maxdepth: 2
 
+   usage
+   syntax
+   contributing
    internals
    roadmap
 

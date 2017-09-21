@@ -32,6 +32,10 @@ Tests
 .. autodata:: test_copyright_re
 .. autodata:: test_license
 .. autodata:: test_license_re
+.. autodata:: test_name
+
+.. autoclass:: RegistrationTest
+   :members:
 
 .. autoclass:: OptionTest
    :members:

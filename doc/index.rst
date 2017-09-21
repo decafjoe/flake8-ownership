@@ -4,10 +4,11 @@
 ==================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    usage
    syntax
+   changelog
    contributing
    internals
    roadmap

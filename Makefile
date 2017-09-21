@@ -11,7 +11,13 @@ PROJECT = flake8-ownership
 VIRTUALENV ?= virtualenv
 
 # "Main" python version for development
-PYTHON_VERSION = python3.6
+ifeq ($(TRAVIS),)
+	PYTHON_VERSION = python3.6
+	PYTHON_VIRTUALENV_ARGUMENT = --python=$(PYTHON_VERSION)
+else
+	PYTHON_VERSION = default
+	PYTHON_VIRTUALENV_ARGUMENT =
+endif
 
 # Base directories
 ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
@@ -74,7 +80,7 @@ help :
 # =============================================================================
 
 $(PYTHON) :
-	$(VIRTUALENV) --python=$(PYTHON_VERSION) $(ENV)
+	$(VIRTUALENV) $(PYTHON_VIRTUALENV_ARGUMENT) $(ENV)
 
 $(PIP) : $(PYTHON)
 

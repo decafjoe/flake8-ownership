@@ -119,7 +119,7 @@ $(PRE_PUSH) : $(ROOT)/Makefile
 	chmod +x $(PRE_PUSH)
 
 lint : env
-	$(FLAKE8) --ignore=D203 $(LINT_FILES)
+	@$(FLAKE8) --ignore=D203 $(LINT_FILES)
 	@printf "Flake8 is happy :)\n"
 
 test-cover : env

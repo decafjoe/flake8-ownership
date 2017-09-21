@@ -154,10 +154,10 @@ $(DIST) : $(README) $(SOURCES) $(UPDATED_ENV)
 dist : $(DIST)
 
 release :
-	$(ROOT)/bin/pre-release
-	cd $(ROOT); make lint test-tox clean dist
+	$(TOOL)/pre-release
+	cd $(ROOT); make clean dist
 	$(TWINE) upload $(DIST)
-	$(ROOT)/bin/post-release $(VERSION)
+	$(TOOL)/post-release $(VERSION)
 
 clean :
 	cd $(ROOT) && rm -rf \

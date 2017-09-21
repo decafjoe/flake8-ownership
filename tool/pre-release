@@ -63,7 +63,7 @@ if [ $local_commit != $remote_commit ]; then
 fi
 
 echo
-read -p 'Is the CHANGELOG.rst file up to date and ready to go? [y/N] ' yn
+read -p 'Is the doc/changelog.rst file up to date and ready to go? [y/N] ' yn
 if [ x"$yn" != xy ]; then
     exit 1
 fi

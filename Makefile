@@ -152,9 +152,9 @@ docs: html pdf
 # =============================================================================
 
 $(DIST) : $(README) $(SOURCES) $(UPDATED_ENV)
-	mv $(CHANGELOG) CHANGELOG; mv $(README) README
+	mv $(README) README
 	-cd $(ROOT) && $(PYTHON) setup.py sdist && touch $(DIST)
-	mv CHANGELOG $(CHANGELOG); mv README $(README)
+	mv README $(README)
 
 dist : $(DIST)
 

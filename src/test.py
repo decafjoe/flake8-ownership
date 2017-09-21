@@ -12,6 +12,7 @@ import re
 import tempfile
 import unittest
 
+import flake8.plugins.manager
 import mock
 
 from flake8_ownership import Checker
@@ -46,6 +47,22 @@ test_license = 'BSD'
 #:
 #: :type: :mod:`re`
 test_license_re = re.compile('^BSD$')
+
+
+#: Entry point name under which this module should be registered.
+#:
+#: :type: :class:`str`
+test_name = 'O10'
+
+
+class RegistrationTest(unittest.TestCase):
+    """Test that the checker is registered."""
+
+    def test(self):
+        """Test that flake8 has loaded the checker's entry point."""
+        checkers = flake8.plugins.manager.Checkers()
+        msg = 'Entry point %s is not registered' % test_name
+        self.assertTrue(test_name in checkers, msg)
 
 
 class OptionTest(unittest.TestCase):

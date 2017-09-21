@@ -12,6 +12,7 @@ VIRTUALENV ?= virtualenv
 
 # "Main" python version for development
 ifeq ($(TRAVIS),)
+	PYTHON_DEFAULT_TOX_ENV = py36
 	PYTHON_VERSION = python3.6
 	PYTHON_VIRTUALENV_ARGUMENT = --python=$(PYTHON_VERSION)
 else
@@ -37,7 +38,6 @@ LINT_FILES = $(DOC)/conf.py $(SETUP) $(SOURCES)
 UPDATED_ENV = $(ENV)/updated
 
 # Commands
-COVERAGE = $(ENV)/bin/coverage
 FLAKE8 = $(ENV)/bin/flake8
 PIP = $(ENV)/bin/pip
 PYTHON = $(ENV)/bin/python
@@ -72,9 +72,9 @@ help :
 	@printf "  pdf           Generate PDF documentation\n"
 	@printf "  pristine      Delete development environment\n"
 	@printf "  release       Cut a release of the software\n"
-	@printf "  test          Run all tests\n"
-	@printf "  test-cover    Run tests, report test coverage\n"
-	@printf "  test-tox      Run tests, all supported Python versions\n\n"
+	@printf "  test          Run tests against $(PYTHON_VERSION)\n"
+	@printf "  test-all      Run tests in all supported versions\n"
+	@printf "\n"
 
 
 # =============================================================================
@@ -122,16 +122,11 @@ lint : env
 	@$(FLAKE8) --ignore=D203 $(LINT_FILES)
 	@printf "Flake8 is happy :)\n"
 
-test-cover : env
-	cd $(ROOT); \
-		$(COVERAGE) run setup.py test; \
-		$(COVERAGE) report; \
-		$(COVERAGE) html
+test : env
+	cd $(ROOT); $(TOX) -e$(PYTHON_DEFAULT_TOX_ENV),cover
 
-test-tox : env
+test-all : env
 	cd $(ROOT); $(TOX)
-
-test : lint test-tox test-cover
 
 
 # =============================================================================
@@ -168,6 +163,6 @@ clean :
 	cd $(ROOT) && rm -rf \
 		$(shell find $(ROOT) -type f -name .DS_Store) \
 		$(shell find $(SRC) -type f -name *.pyc) \
-		.coverage \
+		.tox/coverage* \
 		coverage \
 		dist

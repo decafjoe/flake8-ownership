@@ -1,5 +1,4 @@
 *.py[cdo]
-.coverage
 .env
 .tox
 coverage

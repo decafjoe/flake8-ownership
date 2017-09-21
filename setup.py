@@ -6,8 +6,6 @@ Package configuration for flake8-ownership.
 :copyright: Copyright (c) Joe Joyce and contributors, 2016-2017.
 :license: BSD
 """
-import os
-
 from setuptools import setup
 
 
@@ -17,27 +15,10 @@ requires = (
     'flake8>=3,<4',
 )
 
-root = os.path.abspath(os.path.dirname(__file__))
-
-
-def read(filename, default):
-    """
-    Read and return content of FILENAME (or FILENAME.rst) from root directory.
-
-    If neither of the files exist, ``default`` is returned.
-    """
-    path = os.path.join(root, filename)
-    if os.path.exists(path):
-        return open(path).read()
-    path = '%s.rst' % path
-    if os.path.exists(path):
-        return open(path).read()
-    return default
-
-
-changelog = read('CHANGELOG', 'No changelog present.')
-readme = read('README', 'No readme present.')
-long_description = '%s\n\n%s' % (readme, changelog)
+description = 'A flake8 checker for assuring that author, copyright, and ' \
+              'license are specified in source files.'
+long_description = 'Please see the official project page at ' \
+                   'http://flake8_ownership.readthedocs.io.'
 
 setup(
     author='Joe Joyce',
@@ -58,7 +39,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: PyPy',
     ],
-    description='Checks for author, copyright, and license info.',
+    description=description,
     entry_points={
         'flake8.extension': [
             'O10 = %s:Checker' % name.replace('-', '_'),
@@ -71,7 +52,7 @@ setup(
     package_dir={'': 'src'},
     py_modules=[name.replace('-', '_')],
     test_suite='test',
-    url='https://bitbucket.org/decafjoe/%s' % name,
+    url='http://%s.readthedocs.io' % name,
     version=version,
     zip_safe=False,
 )

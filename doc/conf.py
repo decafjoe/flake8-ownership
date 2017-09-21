@@ -23,8 +23,8 @@ sys.path.insert(0, src_path)
 project = u'flake8-ownership'
 copyright = u'2016-2017, Joe Joyce and contributors'
 author = u'Joe Joyce'
-version = u'1.0'
-release = u'1.0.3'
+version = u'1.1'
+release = u'1.1.0'
 
 # Paths
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

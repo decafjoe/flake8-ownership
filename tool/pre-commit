@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# NOTE -- Remember that this is run before EVERY COMMIT. Be very
+#         careful about what goes in here. If it gets slow (for some
+#         squishy, subjective value of "slow") people will start using
+#         --no-verify, which defeats the whole purpose of this file.

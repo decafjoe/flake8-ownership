@@ -33,6 +33,7 @@ ENV_SOURCES = $(SETUP) $(REQUIREMENTS)
 CHANGELOG = $(ROOT)/CHANGELOG.rst
 README = $(ROOT)/README.rst
 SOURCES := $(shell find $(SRC) -name "*.py")
+LINT_FILES = $(DOC)/conf.py $(SETUP) $(SOURCES)
 UPDATED_ENV = $(ENV)/updated
 
 # Commands
@@ -118,7 +119,7 @@ $(PRE_PUSH) : $(ROOT)/Makefile
 	chmod +x $(PRE_PUSH)
 
 lint : env
-	$(FLAKE8) --ignore=D203 $(DOC)/conf.py $(SETUP) $(SOURCES)
+	$(FLAKE8) --ignore=D203 $(LINT_FILES)
 	@printf "Flake8 is happy :)\n"
 
 test-cover : env

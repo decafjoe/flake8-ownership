@@ -24,7 +24,7 @@ project = u'flake8-ownership'
 copyright = u'2016-2017, Joe Joyce and contributors'
 author = u'Joe Joyce'
 version = u'1.1'
-release = u'1.1.1'
+release = u'1.1.2'
 
 # Paths
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

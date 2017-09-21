@@ -24,6 +24,7 @@ ROOT := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 ENV = $(ROOT)/.env
 DOC = $(ROOT)/doc
 SRC = $(ROOT)/src
+TOOL = $(ROOT)/tool
 
 # Code
 SETUP = $(ROOT)/setup.py
@@ -53,9 +54,9 @@ IGNORE_UPDATES_TO_PYTHON_PACKAGES = "\($(PROJECT)\)\|\(virtualenv\)"
 
 # Git hooks
 PRE_COMMIT = $(ROOT)/.git/hooks/pre-commit
-PRE_COMMIT_HOOK = make lint
+PRE_COMMIT_HOOK = $(TOOL)/pre-commit
 PRE_PUSH = $(ROOT)/.git/hooks/pre-push
-PRE_PUSH_HOOK = make lint test-tox
+PRE_PUSH_HOOK = $(TOOL)/pre-push
 
 
 help :

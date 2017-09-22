@@ -29,8 +29,10 @@ TOOL = $(ROOT)/tool
 
 # Code
 SETUP = $(ROOT)/setup.py
-REQUIREMENTS = $(ROOT)/requirements.txt
-ENV_SOURCES = $(SETUP) $(REQUIREMENTS)
+REQUIREMENTS = $(ROOT)/req
+ENV_REQUIREMENTS = $(REQUIREMENTS)/env.txt
+LINT_REQUIREMENTS = $(REQUIREMENTS)/lint.txt
+ENV_SOURCES = $(SETUP) $(ENV_REQUIREMENTS) $(LINT_REQUIREMENTS)
 CHANGELOG = $(ROOT)/CHANGELOG.rst
 README = $(ROOT)/README.rst
 SOURCES := $(shell find $(SRC) -name "*.py")
@@ -90,7 +92,8 @@ $(UPDATED_ENV) : $(PIP) $(ENV_SOURCES)
 	$(PIP) install -U $(FORCE_UPDATES_TO_PYTHON_PACKAGES)
 	$(PIP) install \
 		--editable $(ROOT) \
-		--requirement $(REQUIREMENTS)
+		--requirement $(ENV_REQUIREMENTS) \
+		--requirement $(LINT_REQUIREMENTS)
 	touch $(UPDATED_ENV)
 
 env : $(PRE_COMMIT) $(PRE_PUSH) $(UPDATED_ENV)

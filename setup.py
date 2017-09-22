@@ -15,10 +15,11 @@ requires = (
     'flake8>=3,<4',
 )
 
+url = 'https://%s.readthedocs.io' % name
 description = 'A flake8 checker for assuring that author, copyright, and ' \
               'license are specified in source files.'
-long_description = 'Please see the official project page at ' \
-                   'http://flake8-ownership.readthedocs.io.'
+long_description = 'Please see the official project page at %s' % url
+
 
 setup(
     author='Joe Joyce',
@@ -51,8 +52,7 @@ setup(
     name=name,
     package_dir={'': 'src'},
     py_modules=[name.replace('-', '_')],
-    test_suite='test',
-    url='http://%s.readthedocs.io' % name,
+    url=url,
     version=version,
     zip_safe=False,
 )

@@ -47,7 +47,7 @@ TOX = $(ENV)/bin/tox
 TWINE = $(ENV)/bin/twine
 
 # Distribution
-VERSION = $(shell $(PYTHON) $(ROOT)/setup.py --version)
+VERSION = $(shell grep "version = '" $(SETUP) | awk -F\' '{print $$2}')
 DIST = $(ROOT)/dist/$(PROJECT)-$(VERSION).tar.gz
 
 # Python package settings

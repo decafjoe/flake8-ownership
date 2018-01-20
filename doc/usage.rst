@@ -29,7 +29,7 @@ This configuration ensures that each file in the project has the
 following lines::
 
   :author: Joe Joyce <joe@decafjoe.com>
-  :copyright: Copyright (c) Joe Joyce and contributors, 2016-2017.
+  :copyright: Copyright (c) Joe Joyce and contributors, 2016-2018.
   :license: BSD
 
 If any of those lines are missing, it's a violation. If they don't

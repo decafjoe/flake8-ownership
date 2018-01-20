@@ -1,7 +1,7 @@
 #
 # Makefile for the flake8-ownership project.
 #
-# Copyright Joe Joyce and contributors, 2016-2017.
+# Copyright Joe Joyce and contributors, 2016-2018.
 # See LICENSE for licensing information.
 #
 

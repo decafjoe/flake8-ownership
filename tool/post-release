@@ -49,4 +49,4 @@ xpsed "s/$search/$replace/" "$root_dir/doc/conf.py"
 git tag $current_version
 git add "$root_dir/setup.py" "$root_dir/doc/conf.py" "$version_file"
 git commit -m "Bumps version from $current_version to $version after release."
-git push --tags --no-verify github master
+git push --tags --no-verify hub master

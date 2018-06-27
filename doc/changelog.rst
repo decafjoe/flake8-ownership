@@ -3,6 +3,11 @@
  Changelog
 ===========
 
+2.0.0
+=====
+
+* Drops support for Python 2.6 and Python 3.3
+
 
 1.1.1
 =====

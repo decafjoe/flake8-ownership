@@ -26,7 +26,7 @@ test_author = 'Joe Joyce <joe@decafjoe.com>'
 #: Regex that matches the "standard" author value.
 #:
 #: :type: :mod:`re`
-test_author_re = re.compile('^Joe Joyce <joe@decafjoe.com>$')
+test_author_re = re.compile(r'^Joe Joyce <joe@decafjoe.com>$')
 
 #: "Standard" test value for the copyright.
 #:
@@ -36,7 +36,7 @@ test_copyright = 'Copyright (c) Joe Joyce, 2016'
 #: Regex that matches the "standard" copyright value.
 #:
 #: :type: :mod:`re`
-test_copyright_re = re.compile('^Copyright \(c\) Joe Joyce, 2016$')
+test_copyright_re = re.compile(r'^Copyright \(c\) Joe Joyce, 2016$')
 
 #: "Standard" test value for the license.
 #:
@@ -46,7 +46,7 @@ test_license = 'BSD'
 #: Regex that matches the "standard" license value.
 #:
 #: :type: :mod:`re`
-test_license_re = re.compile('^BSD$')
+test_license_re = re.compile(r'^BSD$')
 
 
 #: Entry point name under which this module should be registered.

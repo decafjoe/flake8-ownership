@@ -107,7 +107,7 @@ check-update : env
 
 pristine : clean
 	git -C $(ROOT) clean -dfX
-	rm $(PRE_COMMIT) $(PRE_PUSH)
+	rm -f $(PRE_COMMIT) $(PRE_PUSH)
 
 
 # =============================================================================

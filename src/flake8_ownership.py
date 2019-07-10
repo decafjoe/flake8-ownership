@@ -85,7 +85,7 @@ class Checker(object):
     @classmethod
     def _parse_option(cls, options, option):
         regexes = getattr(options, option, '') or ''
-        regexes = regexes.split(',’)
+        regexes = regexes.split(',')
         if len(regexes) == 1 and regexes[0] == '':
             return []
 

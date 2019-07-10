@@ -117,7 +117,7 @@ class OptionTest(unittest.TestCase):
         
     def test_parse_options_none(self):
         """Test when an option is not defined or has a default value of None (seems that flake8 does this now)."""
-        options = mock.Mock()
+        options = mock.Mock(spec=())
         options.author_re = None
         Checker.parse_options(options)
         self.assertEqual(0, len(Checker.author_re))

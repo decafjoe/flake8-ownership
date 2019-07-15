@@ -3,6 +3,12 @@
  Changelog
 ===========
 
+2.0.1
+=====
+
+* Fixes errors when options are undefined or ``None`` (from Sam Bull
+  of Kopernio)
+
 2.0.0
 =====
 
